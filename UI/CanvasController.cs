@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace Dragonarium.UI;
 
 public partial class CanvasController : CanvasLayer
 {

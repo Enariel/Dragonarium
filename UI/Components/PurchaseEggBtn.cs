@@ -1,9 +1,10 @@
-using Godot;
-using System;
 using System.Linq;
 using Dragonarium.Models;
 using Dragonarium.Services.Contexts;
 using Dragonarium.Services.Repos;
+using Godot;
+
+namespace Dragonarium.UI.Components;
 
 public partial class PurchaseEggBtn : Button
 {

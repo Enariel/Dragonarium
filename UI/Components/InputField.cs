@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace Dragonarium.UI.Components;
 
 public partial class InputField : HBoxContainer
 {

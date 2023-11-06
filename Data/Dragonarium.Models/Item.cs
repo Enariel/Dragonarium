@@ -15,17 +15,4 @@ namespace Dragonarium.Models
 
         public virtual ICollection<ItemCurrency> ItemCurrencies { get; set; }
     }
-
-    public class HabitatItem : Item
-    {
-        public Guid LkHabitatID { get; set; }
-        public virtual LkHabitat LkHabitat { get; set; }
-
-    }
-
-    public class DragonEggItem : Item
-    {
-        public Guid LkDragonID { get; set; }
-        public virtual LkDragon LkDragon { get; set; }
-    }
 }

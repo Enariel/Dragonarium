@@ -121,14 +121,14 @@ namespace Dragonarium.Services.Migrations
                     b.HasData(
                         new
                         {
-                            LkDragonID = new Guid("48456299-e118-473e-8a19-b31e8bcb0ccb"),
+                            LkDragonID = new Guid("20e8a44d-2a72-498e-826c-116cebb809d6"),
                             Description = "Dragon Desc",
                             DragonName = "Dragon",
                             GoldRate = 0
                         },
                         new
                         {
-                            LkDragonID = new Guid("84dc6fdc-c555-428b-b284-3c3f5df43b38"),
+                            LkDragonID = new Guid("0ad1c046-af89-49af-af72-d397bc2cb57c"),
                             Description = "Dragon Desc II",
                             DragonName = "Dragon II",
                             GoldRate = 0
@@ -235,7 +235,7 @@ namespace Dragonarium.Services.Migrations
                     b.HasData(
                         new
                         {
-                            HabitatID = new Guid("ab7725ec-678d-4dea-8764-7666c78eca58"),
+                            HabitatID = new Guid("f6fa9d16-3fdc-4773-907a-7866a1ad1f34"),
                             Description = "Habitat Desc",
                             HabitatName = "Habitat"
                         });

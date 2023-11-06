@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dragonarium.Services.Migrations
 {
     [DbContext(typeof(DragonariumDbContext))]
-    [Migration("20231106152604_Initialize")]
-    partial class Initialize
+    [Migration("20231106191047_HabitatElementsII")]
+    partial class HabitatElementsII
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,9 @@ namespace Dragonarium.Services.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
 
+                    b.Property<string>("Icon")
+                        .HasColumnType("longchar");
+
                     b.Property<string>("ItemName")
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
@@ -41,6 +44,8 @@ namespace Dragonarium.Services.Migrations
                     b.HasKey("ItemID");
 
                     b.ToTable("Items", (string)null);
+
+                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("Dragonarium.Models.ItemCurrency", b =>
@@ -119,14 +124,14 @@ namespace Dragonarium.Services.Migrations
                     b.HasData(
                         new
                         {
-                            LkDragonID = new Guid("ba1adc28-8998-43cb-8dee-481e32f9df90"),
+                            LkDragonID = new Guid("20e8a44d-2a72-498e-826c-116cebb809d6"),
                             Description = "Dragon Desc",
                             DragonName = "Dragon",
                             GoldRate = 0
                         },
                         new
                         {
-                            LkDragonID = new Guid("a315d35d-fc3c-4c62-9b4b-7cbb56e83976"),
+                            LkDragonID = new Guid("0ad1c046-af89-49af-af72-d397bc2cb57c"),
                             Description = "Dragon Desc II",
                             DragonName = "Dragon II",
                             GoldRate = 0
@@ -172,7 +177,8 @@ namespace Dragonarium.Services.Migrations
                         .HasAnnotation("Jet:ValueGenerationStrategy", JetValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
-                        .HasColumnType("longchar");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ElementName")
                         .HasMaxLength(50)
@@ -232,7 +238,7 @@ namespace Dragonarium.Services.Migrations
                     b.HasData(
                         new
                         {
-                            HabitatID = new Guid("a9e33e0d-1671-4589-a8f6-084eb6a1cca3"),
+                            HabitatID = new Guid("f6fa9d16-3fdc-4773-907a-7866a1ad1f34"),
                             Description = "Habitat Desc",
                             HabitatName = "Habitat"
                         });
@@ -251,6 +257,30 @@ namespace Dragonarium.Services.Migrations
                     b.HasIndex("LkElementID");
 
                     b.ToTable("HabitatElements", (string)null);
+                });
+
+            modelBuilder.Entity("Dragonarium.Models.DragonEggItem", b =>
+                {
+                    b.HasBaseType("Dragonarium.Models.Item");
+
+                    b.Property<Guid>("LkDragonID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("LkDragonID");
+
+                    b.ToTable("DragonEggItems", (string)null);
+                });
+
+            modelBuilder.Entity("Dragonarium.Models.HabitatItem", b =>
+                {
+                    b.HasBaseType("Dragonarium.Models.Item");
+
+                    b.Property<Guid>("LkHabitatID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("LkHabitatID");
+
+                    b.ToTable("HabitatItems", (string)null);
                 });
 
             modelBuilder.Entity("Dragonarium.Models.ItemCurrency", b =>
@@ -312,17 +342,49 @@ namespace Dragonarium.Services.Migrations
                         .WithMany()
                         .HasForeignKey("LkElementID")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_HabitatElement_Element");
+                        .IsRequired();
+
+                    b.HasOne("Dragonarium.Models.LkHabitat", "LkHabitat")
+                        .WithMany("LkHabitatElements")
+                        .HasForeignKey("LkHabitatID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LkElement");
+
+                    b.Navigation("LkHabitat");
+                });
+
+            modelBuilder.Entity("Dragonarium.Models.DragonEggItem", b =>
+                {
+                    b.HasOne("Dragonarium.Models.Item", null)
+                        .WithOne()
+                        .HasForeignKey("Dragonarium.Models.DragonEggItem", "ItemID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dragonarium.Models.LkDragon", "LkDragon")
+                        .WithMany()
+                        .HasForeignKey("LkDragonID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LkDragon");
+                });
+
+            modelBuilder.Entity("Dragonarium.Models.HabitatItem", b =>
+                {
+                    b.HasOne("Dragonarium.Models.Item", null)
+                        .WithOne()
+                        .HasForeignKey("Dragonarium.Models.HabitatItem", "ItemID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Dragonarium.Models.LkHabitat", "LkHabitat")
                         .WithMany()
                         .HasForeignKey("LkHabitatID")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_HabitatElement_Habitat");
-
-                    b.Navigation("LkElement");
+                        .IsRequired();
 
                     b.Navigation("LkHabitat");
                 });
@@ -335,6 +397,11 @@ namespace Dragonarium.Services.Migrations
             modelBuilder.Entity("Dragonarium.Models.LkDragon", b =>
                 {
                     b.Navigation("DragonElements");
+                });
+
+            modelBuilder.Entity("Dragonarium.Models.LkHabitat", b =>
+                {
+                    b.Navigation("LkHabitatElements");
                 });
 #pragma warning restore 612, 618
         }

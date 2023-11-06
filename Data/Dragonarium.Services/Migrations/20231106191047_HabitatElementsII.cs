@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Dragonarium.Services.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialize : Migration
+    public partial class HabitatElementsII : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,7 +48,7 @@ namespace Dragonarium.Services.Migrations
                     LkElementID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Jet:Identity", "1, 1"),
                     ElementName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
-                    Description = table.Column<string>(type: "longchar", nullable: true)
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -74,7 +74,8 @@ namespace Dragonarium.Services.Migrations
                 {
                     ItemID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ItemName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
-                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
+                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    Icon = table.Column<string>(type: "longchar", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -134,16 +135,64 @@ namespace Dragonarium.Services.Migrations
                 {
                     table.PrimaryKey("PK_HabitatElements", x => new { x.LkHabitatID, x.LkElementID });
                     table.ForeignKey(
-                        name: "FK_HabitatElement_Element",
+                        name: "FK_HabitatElements_Elements_LkElementID",
                         column: x => x.LkElementID,
                         principalTable: "Elements",
                         principalColumn: "LkElementID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_HabitatElement_Habitat",
+                        name: "FK_HabitatElements_Habitats_LkHabitatID",
                         column: x => x.LkHabitatID,
                         principalTable: "Habitats",
                         principalColumn: "HabitatID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DragonEggItems",
+                columns: table => new
+                {
+                    ItemID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LkDragonID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DragonEggItems", x => x.ItemID);
+                    table.ForeignKey(
+                        name: "FK_DragonEggItems_Dragons_LkDragonID",
+                        column: x => x.LkDragonID,
+                        principalTable: "Dragons",
+                        principalColumn: "DragonID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DragonEggItems_Items_ItemID",
+                        column: x => x.ItemID,
+                        principalTable: "Items",
+                        principalColumn: "ItemID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HabitatItems",
+                columns: table => new
+                {
+                    ItemID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LkHabitatID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HabitatItems", x => x.ItemID);
+                    table.ForeignKey(
+                        name: "FK_HabitatItems_Habitats_LkHabitatID",
+                        column: x => x.LkHabitatID,
+                        principalTable: "Habitats",
+                        principalColumn: "HabitatID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HabitatItems_Items_ItemID",
+                        column: x => x.ItemID,
+                        principalTable: "Items",
+                        principalColumn: "ItemID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -186,8 +235,8 @@ namespace Dragonarium.Services.Migrations
                 columns: new[] { "DragonID", "Description", "DragonName", "GoldRate" },
                 values: new object[,]
                 {
-                    { new Guid("a315d35d-fc3c-4c62-9b4b-7cbb56e83976"), "Dragon Desc II", "Dragon II", 0 },
-                    { new Guid("ba1adc28-8998-43cb-8dee-481e32f9df90"), "Dragon Desc", "Dragon", 0 }
+                    { new Guid("0ad1c046-af89-49af-af72-d397bc2cb57c"), "Dragon Desc II", "Dragon II", 0 },
+                    { new Guid("20e8a44d-2a72-498e-826c-116cebb809d6"), "Dragon Desc", "Dragon", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -204,7 +253,12 @@ namespace Dragonarium.Services.Migrations
             migrationBuilder.InsertData(
                 table: "Habitats",
                 columns: new[] { "HabitatID", "Description", "HabitatName" },
-                values: new object[] { new Guid("a9e33e0d-1671-4589-a8f6-084eb6a1cca3"), "Habitat Desc", "Habitat" });
+                values: new object[] { new Guid("f6fa9d16-3fdc-4773-907a-7866a1ad1f34"), "Habitat Desc", "Habitat" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DragonEggItems_LkDragonID",
+                table: "DragonEggItems",
+                column: "LkDragonID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DragonElements_ElementID",
@@ -217,6 +271,11 @@ namespace Dragonarium.Services.Migrations
                 column: "LkElementID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_HabitatItems_LkHabitatID",
+                table: "HabitatItems",
+                column: "LkHabitatID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ItemCurrencies_LkCurrencyID",
                 table: "ItemCurrencies",
                 column: "LkCurrencyID");
@@ -226,6 +285,9 @@ namespace Dragonarium.Services.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "DragonEggItems");
+
+            migrationBuilder.DropTable(
                 name: "DragonEggs");
 
             migrationBuilder.DropTable(
@@ -233,6 +295,9 @@ namespace Dragonarium.Services.Migrations
 
             migrationBuilder.DropTable(
                 name: "HabitatElements");
+
+            migrationBuilder.DropTable(
+                name: "HabitatItems");
 
             migrationBuilder.DropTable(
                 name: "ItemCurrencies");

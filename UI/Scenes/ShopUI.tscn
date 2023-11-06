@@ -1,0 +1,92 @@
+[gd_scene load_steps=2 format=3 uid="uid://kuann41x10s5"]
+
+[ext_resource type="Texture2D" uid="uid://j0p2gfcrdbci" path="res://icon.svg" id="1_mf4yo"]
+
+[node name="ShopUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ShopPanelCntr" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 64
+
+[node name="ShopPanel" type="Panel" parent="ShopPanelCntr"]
+layout_mode = 2
+
+[node name="WindowLayout" type="VBoxContainer" parent="ShopPanelCntr/ShopPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleBar" type="Panel" parent="ShopPanelCntr/ShopPanel/WindowLayout"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="WindowTitle" type="Label" parent="ShopPanelCntr/ShopPanel/WindowLayout/TitleBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 162
+
+[node name="WindowContents" type="Panel" parent="ShopPanelCntr/ShopPanel/WindowLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ContentsCntr" type="MarginContainer" parent="ShopPanelCntr/ShopPanel/WindowLayout/WindowContents"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="ShopItemCntr" type="VBoxContainer" parent="ShopPanelCntr/ShopPanel/WindowLayout/WindowContents/ContentsCntr"]
+layout_mode = 2
+
+[node name="SubTitle" type="Label" parent="ShopPanelCntr/ShopPanel/WindowLayout/WindowContents/ContentsCntr/ShopItemCntr"]
+layout_mode = 2
+text = "SubTitle
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 162
+
+[node name="ItemList" type="ItemList" parent="ShopPanelCntr/ShopPanel/WindowLayout/WindowContents/ContentsCntr/ShopItemCntr"]
+layout_mode = 2
+size_flags_vertical = 3
+auto_height = true
+item_count = 1
+max_columns = 4
+same_column_width = true
+fixed_column_width = 88
+icon_mode = 0
+fixed_icon_size = Vector2i(64, 64)
+item_0/text = "fgysd"
+item_0/icon = ExtResource("1_mf4yo")

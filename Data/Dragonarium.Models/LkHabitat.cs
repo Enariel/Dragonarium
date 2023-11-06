@@ -13,5 +13,7 @@ namespace Dragonarium.Models
         public Guid HabitatID { get; set; }
         public string HabitatName { get; set; }
         public string Description { get; set; }
+
+        public virtual ICollection<LkHabitatElement> LkHabitatElements { get; set; }
     }
 }

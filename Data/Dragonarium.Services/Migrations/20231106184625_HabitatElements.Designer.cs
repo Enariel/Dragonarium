@@ -4,6 +4,7 @@ using Dragonarium.Services.Contexts;
 using EntityFrameworkCore.Jet.Metadata;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dragonarium.Services.Migrations
 {
     [DbContext(typeof(DragonariumDbContext))]
-    partial class DragonariumDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231106184625_HabitatElements")]
+    partial class HabitatElements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

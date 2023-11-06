@@ -38,6 +38,12 @@ namespace Dragonarium.Services.Contexts
         public DbSet<LkDragonEgg> DragonEggs { get; set; }
         public DbSet<LkHabitat> Habitats { get; set; }
         public DbSet<LkHabitatElement> HabitatElements { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<ItemCurrency> ItemCurrencies { get; set; }
+        public DbSet<LkCurrency> Currencies { get; set; }
+        public DbSet<HabitatItem> HabitatItems { get; set; }
+        public DbSet<DragonEggItem> EggItems { get; set; }
+
 
         /// <inheritdoc />
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -62,6 +68,8 @@ namespace Dragonarium.Services.Contexts
                           .ValueGeneratedOnAdd();
                     entity.Property(e => e.ElementName)
                           .HasMaxLength(50);
+                    entity.Property(e => e.Description)
+                          .HasMaxLength(255);
 
                     entity.HasData(new List<LkElement>()
                                    {
@@ -94,14 +102,21 @@ namespace Dragonarium.Services.Contexts
                 entity =>
                 {
                     entity.ToTable("Habitats");
-                    entity.HasKey(habitat => habitat.HabitatID).HasName("PK_Habitat");
+                    entity.HasKey(habitat => habitat.HabitatID)
+                          .HasName("PK_Habitat");
                     entity.Property(hab => hab.HabitatID)
                           .ValueGeneratedOnAdd()
-                          .HasValueGenerator<GuidValueGenerator>().HasColumnName("HabitatID");
+                          .HasValueGenerator<GuidValueGenerator>()
+                          .HasColumnName("HabitatID");
                     entity.Property(e => e.HabitatName)
                           .HasMaxLength(50);
                     entity.Property(e => e.Description)
                           .HasMaxLength(255);
+
+                    // Relationship with LkHabitatElement
+                    entity.HasMany(e => e.LkHabitatElements)
+                          .WithOne(e => e.LkHabitat)
+                          .HasForeignKey(e => e.LkHabitatID);
 
                     // Generate test habitat data
                     entity.HasData(new List<LkHabitat>() { new LkHabitat { HabitatID = Guid.NewGuid(), HabitatName = "Habitat", Description = "Habitat Desc" }, });
@@ -113,31 +128,20 @@ namespace Dragonarium.Services.Contexts
                     entity.ToTable("Dragons");
                     entity.HasKey(dragon => dragon.LkDragonID)
                           .HasName("PK_Dragon");
-                    entity.Property(x=>x.LkDragonID)
+                    entity.Property(x => x.LkDragonID)
                           .HasColumnName("DragonID");
 
                     // Test dragon data
                     entity.HasData(new List<LkDragon>()
                                    {
-                                       new LkDragon
-                                       {
-                                           LkDragonID = Guid.NewGuid(),
-                                           DragonName = "Dragon",
-                                           Description = "Dragon Desc",
-                                       },
-                                       new LkDragon
-                                       {
-                                           LkDragonID = Guid.NewGuid(),
-                                           DragonName = "Dragon II",
-                                           Description = "Dragon Desc II",
-                                       },
+                                       new LkDragon { LkDragonID = Guid.NewGuid(), DragonName = "Dragon", Description = "Dragon Desc", },
+                                       new LkDragon { LkDragonID = Guid.NewGuid(), DragonName = "Dragon II", Description = "Dragon Desc II", },
                                    });
                 });
 
             modelBuilder.Entity<Item>(
                 entity =>
                 {
-                    entity.ToTable("Items");
                     entity.HasKey(item => item.ItemID);
                     entity.HasMany(item => item.ItemCurrencies)
                           .WithOne(ic => ic.Item)
@@ -147,22 +151,45 @@ namespace Dragonarium.Services.Contexts
                           .HasMaxLength(50);
                     entity.Property(e => e.Description)
                           .HasMaxLength(255);
+
+                    entity.ToTable("Items"); // Table name for Item
+                });
+
+            modelBuilder.Entity<HabitatItem>(
+                entity =>
+                {
+                    entity.ToTable("HabitatItems"); // Table name for HabitatItem
+
+                    // Additional properties and relations for HabitatItem
+
+                    // In case if LkHabitatID is a foreign key and LkHabitat is a navigation property
+                    entity.HasOne(e => e.LkHabitat).WithMany().HasForeignKey(e => e.LkHabitatID);
+                });
+
+            modelBuilder.Entity<DragonEggItem>(
+                entity =>
+                {
+                    entity.ToTable("DragonEggItems"); // Table name for DragonEggItem
+
+                    // Additional properties and relations for DragonEggItem
+
+                    // In case if LkDragonID is a foreign key and LkDragon is a navigation property
+                    entity.HasOne(e => e.LkDragon).WithMany().HasForeignKey(e => e.LkDragonID);
                 });
 
             modelBuilder.Entity<LkHabitatElement>(
                 entity =>
                 {
                     entity.ToTable("HabitatElements");
-                    entity.HasKey(e => new { e.LkHabitatID, e.LkElementID });
+                    entity.HasKey(e => new { e.LkHabitatID, e.LkElementID }); // Composite PK
                     entity.HasOne(e => e.LkHabitat)
-                          .WithMany()
-                          .HasForeignKey(e => e.LkHabitatID)
-                          .HasConstraintName("FK_HabitatElement_Habitat");
+                          .WithMany(e => e.LkHabitatElements)
+                          .HasForeignKey(e => e.LkHabitatID);
                     entity.HasOne(e => e.LkElement)
-                          .WithMany()
-                          .HasForeignKey(e => e.LkElementID)
-                          .HasConstraintName("FK_HabitatElement_Element");
+                          .WithMany() // If LkElement has a collection of LkHabitatElement add it here
+                          .HasForeignKey(e => e.LkElementID);
                 });
+
 
             modelBuilder.Entity<LkDragonElement>(
                 entity =>
@@ -170,12 +197,12 @@ namespace Dragonarium.Services.Contexts
                     entity.ToTable("DragonElements");
                     entity.HasKey(e => new { e.LkDragonID, e.LkElementID })
                           .HasName("PK_DragonElement");
-                    entity.Property(x=>x.LkDragonID)
+                    entity.Property(x => x.LkDragonID)
                           .HasColumnName("DragonID");
-                    entity.Property(x=>x.LkElementID)
+                    entity.Property(x => x.LkElementID)
                           .HasColumnName("ElementID");
                     entity.HasOne(de => de.LkDragon)
-                          .WithMany(e=>e.DragonElements)
+                          .WithMany(e => e.DragonElements)
                           .HasForeignKey(de => de.LkDragonID)
                           .HasConstraintName("FK_DragonElement_Dragon");
                     entity.HasOne(de => de.LkElement)
@@ -202,7 +229,7 @@ namespace Dragonarium.Services.Contexts
                 entity =>
                 {
                     entity.ToTable("ItemCurrencies");
-                    entity.HasKey(itemCurrency => new { itemCurrency.ItemID,itemCurrency.LkCurrencyID });
+                    entity.HasKey(itemCurrency => new { itemCurrency.ItemID, itemCurrency.LkCurrencyID });
                     entity.HasOne(itemCurrency => itemCurrency.Item)
                           .WithMany(item => item.ItemCurrencies)
                           .HasForeignKey(itemCurrency => itemCurrency.ItemID);

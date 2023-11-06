@@ -8,7 +8,7 @@ namespace Dragonarium.Models
 {
     public class LkElement
     {
-        public int ElementID { get; set; }
+        public int LkElementID { get; set; }
         public string ElementName { get; set; }
         public string Description { get; set; }
     }

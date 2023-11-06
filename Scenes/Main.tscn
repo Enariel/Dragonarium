@@ -7,3 +7,11 @@
 [node name="GameController" parent="." instance=ExtResource("1_ubr8x")]
 
 [node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="ShopUI" type="Control" parent="Canvas"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainCamera" type="Camera2D" parent="."]

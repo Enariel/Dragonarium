@@ -8,10 +8,10 @@ namespace Dragonarium.Models
 {
     public class LkHabitatElement
     {
-        public Guid HabitatID { get; set; }
-        public int ElementID { get; set; }
+        public Guid LkHabitatID { get; set; }
+        public int LkElementID { get; set; }
 
-        public virtual LkHabitat Habitat { get; set; }
-        public virtual LkElement Element { get; set; }
+        public virtual LkHabitat LkHabitat { get; set; }
+        public virtual LkElement LkElement { get; set; }
     }
 }

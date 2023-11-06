@@ -11,5 +11,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Data\Dragonarium.Models\Dragonarium.Models.csproj" />
+    <ProjectReference Include="Data\Dragonarium.Services\Dragonarium.Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Systems\Inventory\" />
+    <Folder Include="Systems\Shops\" />
+    <EmbeddedResource Include="DragonariumDb.accdb" />
   </ItemGroup>
 </Project>

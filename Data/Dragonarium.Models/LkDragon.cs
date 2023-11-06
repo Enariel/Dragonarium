@@ -8,9 +8,11 @@ namespace Dragonarium.Models
 {
     public class LkDragon
     {
-        public Guid DragonID { get; set; }
+        public Guid LkDragonID { get; set; }
         public string DragonName { get; set; }
         public string Description { get; set; }
         public int GoldRate { get; set; }
+
+        public virtual ICollection<LkDragonElement> DragonElements { get; set; }
     }
 }

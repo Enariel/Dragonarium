@@ -1,0 +1,25 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvb8uvbu4b3sb"]
+
+[ext_resource type="Script" path="res://Utility/GameController.cs" id="1_b84uv"]
+[ext_resource type="Script" path="res://Habitats/HabitatManager.cs" id="2_b2wn2"]
+[ext_resource type="PackedScene" uid="uid://b2lu34xf5fy3q" path="res://Dragons/Dragon.tscn" id="2_hmpkm"]
+[ext_resource type="PackedScene" uid="uid://b2e7cxiuw6trj" path="res://Habitats/Habitat.tscn" id="3_l7lfk"]
+[ext_resource type="Script" path="res://Player/PlayerManager.cs" id="4_0kv5s"]
+[ext_resource type="Script" path="res://Habitats/IslandMap.cs" id="6_u4fmy"]
+
+[node name="GameController" type="Node" node_paths=PackedStringArray("HabitatManager", "PlayerManager")]
+script = ExtResource("1_b84uv")
+DragonScene = ExtResource("2_hmpkm")
+HabitatScene = ExtResource("3_l7lfk")
+HabitatManager = NodePath("HabitatManager")
+PlayerManager = NodePath("PlayerManager")
+
+[node name="PlayerManager" type="Node" parent="."]
+script = ExtResource("4_0kv5s")
+
+[node name="HabitatManager" type="Node" parent="."]
+script = ExtResource("2_b2wn2")
+
+[node name="IslandMap" type="TileMap" parent="HabitatManager"]
+format = 2
+script = ExtResource("6_u4fmy")

@@ -1,0 +1,35 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dragonarium", "Dragonarium.csproj", "{3D931A0A-C9C0-4AFC-B4CA-74368E7785BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dragonarium.Models", "Data\Dragonarium.Models\Dragonarium.Models.csproj", "{ED3ED544-226F-422C-8A3B-C1C4B6D6FFD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dragonarium.Services", "Data\Dragonarium.Services\Dragonarium.Services.csproj", "{5EFEFD03-D082-4709-8E7A-B14A21B46130}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D931A0A-C9C0-4AFC-B4CA-74368E7785BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D931A0A-C9C0-4AFC-B4CA-74368E7785BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D931A0A-C9C0-4AFC-B4CA-74368E7785BF}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{3D931A0A-C9C0-4AFC-B4CA-74368E7785BF}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{3D931A0A-C9C0-4AFC-B4CA-74368E7785BF}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{3D931A0A-C9C0-4AFC-B4CA-74368E7785BF}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{ED3ED544-226F-422C-8A3B-C1C4B6D6FFD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED3ED544-226F-422C-8A3B-C1C4B6D6FFD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED3ED544-226F-422C-8A3B-C1C4B6D6FFD8}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED3ED544-226F-422C-8A3B-C1C4B6D6FFD8}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{ED3ED544-226F-422C-8A3B-C1C4B6D6FFD8}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED3ED544-226F-422C-8A3B-C1C4B6D6FFD8}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{5EFEFD03-D082-4709-8E7A-B14A21B46130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EFEFD03-D082-4709-8E7A-B14A21B46130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EFEFD03-D082-4709-8E7A-B14A21B46130}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EFEFD03-D082-4709-8E7A-B14A21B46130}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{5EFEFD03-D082-4709-8E7A-B14A21B46130}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EFEFD03-D082-4709-8E7A-B14A21B46130}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal

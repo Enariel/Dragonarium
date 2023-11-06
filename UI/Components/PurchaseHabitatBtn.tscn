@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba3lc547smyem"]
+
+[ext_resource type="Script" path="res://UI/Components/PurchaseHabitatBtn.cs" id="1_qmydr"]
+
+[node name="GetHabitatBtn" type="Button"]
+text = "Habitat"
+script = ExtResource("1_qmydr")

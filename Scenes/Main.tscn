@@ -1,14 +1,77 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbsqttwxl2qok"]
+[gd_scene load_steps=6 format=3 uid="uid://cbsqttwxl2qok"]
 
 [ext_resource type="PackedScene" uid="uid://dvb8uvbu4b3sb" path="res://Utility/GameController.tscn" id="1_ubr8x"]
-[ext_resource type="PackedScene" uid="uid://80w673cqa6rs" path="res://UI/Scenes/HUDUI.tscn" id="2_u56qi"]
+[ext_resource type="Script" path="res://UI/CanvasController.cs" id="2_vrfvu"]
+[ext_resource type="Script" path="res://UI/Components/InputField.cs" id="3_ummq8"]
+[ext_resource type="PackedScene" uid="uid://botmd6atscsqe" path="res://UI/Components/PurchaseEggBtn.tscn" id="3_v27f6"]
+[ext_resource type="PackedScene" uid="uid://ba3lc547smyem" path="res://UI/Components/PurchaseHabitatBtn.tscn" id="4_lmimt"]
 
 [node name="Main" type="Node"]
 
 [node name="GameController" parent="." instance=ExtResource("1_ubr8x")]
 
 [node name="Canvas" type="CanvasLayer" parent="."]
+script = ExtResource("2_vrfvu")
 
-[node name="HUDCntr" parent="Canvas" instance=ExtResource("2_u56qi")]
+[node name="MarginContainer" type="MarginContainer" parent="Canvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Canvas/MarginContainer/VBoxContainer" node_paths=PackedStringArray("Input", "AcceptBtn", "ClearBtn", "TextLbl")]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_vertical = 8
+script = ExtResource("3_ummq8")
+Input = NodePath("PlayerNameInpt")
+AcceptBtn = NodePath("AcceptBtn")
+ClearBtn = NodePath("ClearBtn")
+TextLbl = NodePath("../PlayerNameOutpt")
+
+[node name="PlayerNameInpt" type="LineEdit" parent="Canvas/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_vertical = 4
+placeholder_text = "Input Player Name"
+
+[node name="AcceptBtn" type="Button" parent="Canvas/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Accept"
+
+[node name="ClearBtn" type="Button" parent="Canvas/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Clear
+"
+
+[node name="PlayerNameOutpt" type="Label" parent="Canvas/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Player Name"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="DebugBtns" type="VBoxContainer" parent="Canvas/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="GetEggBtn" parent="Canvas/MarginContainer/DebugBtns" instance=ExtResource("3_v27f6")]
+layout_mode = 2
+
+[node name="GetHabitatBtn" parent="Canvas/MarginContainer/DebugBtns" instance=ExtResource("4_lmimt")]
+layout_mode = 2
 
 [node name="MainCamera" type="Camera2D" parent="."]

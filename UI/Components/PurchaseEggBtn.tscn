@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://botmd6atscsqe"]
+
+[ext_resource type="Script" path="res://UI/Components/PurchaseEggBtn.cs" id="1_dhj48"]
+
+[node name="GetEggBtn" type="Button"]
+text = "Egg Button"
+alignment = 2
+script = ExtResource("1_dhj48")

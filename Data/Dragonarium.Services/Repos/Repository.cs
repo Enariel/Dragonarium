@@ -34,6 +34,26 @@ namespace Dragonarium.Services.Repos
             return await Context.Set<TEntity>().FindAsync(id);
         }
 
+        public TEntity Get(string id)
+        {
+            return Context.Set<TEntity>().Find(id);
+        }
+
+        public async Task<TEntity> GetAsync(string id)
+        {
+            return await Context.Set<TEntity>().FindAsync(id);
+        }
+
+        public TEntity Get(Guid id)
+        {
+            return Context.Set<TEntity>().Find(id);
+        }
+
+        public async Task<TEntity> GetAsync(Guid id)
+        {
+            return await Context.Set<TEntity>().FindAsync(id);
+        }
+
         public IEnumerable<TEntity> GetAll()
         {
             return Context.Set<TEntity>().ToList();
@@ -67,24 +87,5 @@ namespace Dragonarium.Services.Repos
             Context.Set<TEntity>().Remove(entity);
             Context.SaveChanges();
         }
-    }
-
-    public interface IRepository<T>
-    {
-        T Get(int id);
-
-        Task<T> GetAsync(int id);
-
-        IEnumerable<T> GetAll();
-
-        Task<IEnumerable<T>> GetAllAsync();
-
-        void Add(T entity);
-
-        Task AddAsync(T entity);
-
-        void Update(T entity);
-
-        void Delete(T entity);
     }
 }

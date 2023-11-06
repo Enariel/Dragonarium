@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://cok2j0vtds4hu"]
+
+[ext_resource type="Script" path="res://UI/Components/HUDBarController.cs" id="1_isjrs"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_cru7m"]
+device = -1
+keycode = 83
+unicode = 115
+
+[sub_resource type="Shortcut" id="Shortcut_khkjo"]
+events = [SubResource("InputEventKey_cru7m")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_0ldkf"]
+device = -1
+keycode = 67
+unicode = 99
+
+[sub_resource type="Shortcut" id="Shortcut_lu8pm"]
+events = [SubResource("InputEventKey_0ldkf")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_tucxr"]
+device = -1
+keycode = 73
+unicode = 105
+
+[sub_resource type="Shortcut" id="Shortcut_86c4u"]
+events = [SubResource("InputEventKey_tucxr")]
+
+[node name="ButtonsBar" type="HBoxContainer" node_paths=PackedStringArray("ShopBtn", "ProfileBtn", "InventoryBtn", "SettingsBtn", "QuitBtn")]
+alignment = 1
+script = ExtResource("1_isjrs")
+ShopBtn = NodePath("ShopWindowBtn")
+ProfileBtn = NodePath("ProfileWindowBtn")
+InventoryBtn = NodePath("InventoryBtn")
+SettingsBtn = NodePath("SettingsBtn")
+QuitBtn = NodePath("QuitBtn")
+
+[node name="ShopWindowBtn" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+shortcut = SubResource("Shortcut_khkjo")
+text = "Shop"
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="ProfileWindowBtn" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+shortcut = SubResource("Shortcut_lu8pm")
+text = "Profile"
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="InventoryBtn" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+shortcut = SubResource("Shortcut_86c4u")
+text = "Inventory"
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="SettingsBtn" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Settings"
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="QuitBtn" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quit"
+flat = true
+icon_alignment = 1
+expand_icon = true

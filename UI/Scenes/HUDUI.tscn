@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://80w673cqa6rs"]
+[gd_scene load_steps=2 format=3 uid="uid://80w673cqa6rs"]
+
+[ext_resource type="PackedScene" uid="uid://cok2j0vtds4hu" path="res://UI/Components/HUDButtonsBar.tscn" id="1_tndmn"]
 
 [node name="HUDCntr" type="MarginContainer"]
 anchors_preset = 15
@@ -77,3 +79,23 @@ vertical_alignment = 1
 [node name="ProgressBar" type="ProgressBar" parent="PlayerInfoPnl/PlayerInfoCntr/PlayerStatsCntr"]
 layout_mode = 2
 value = 82.0
+
+[node name="BottomBtns" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="OptionsCntr" type="MarginContainer" parent="BottomBtns"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ButtonsBar" parent="BottomBtns/OptionsCntr" instance=ExtResource("1_tndmn")]
+layout_mode = 2

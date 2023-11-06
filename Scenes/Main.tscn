@@ -6,9 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://botmd6atscsqe" path="res://UI/Components/PurchaseEggBtn.tscn" id="3_v27f6"]
 [ext_resource type="PackedScene" uid="uid://ba3lc547smyem" path="res://UI/Components/PurchaseHabitatBtn.tscn" id="4_lmimt"]
 [ext_resource type="Script" path="res://Utility/CameraController.cs" id="6_3qyqn"]
-[ext_resource type="PackedScene" uid="uid://b2lu34xf5fy3q" path="res://Dragons/Dragon.tscn" id="7_x06ju"]
+[ext_resource type="PackedScene" uid="uid://80w673cqa6rs" path="res://UI/Scenes/HUDUI.tscn" id="7_yrrdb"]
 
 [node name="Main" type="Node"]
+
+[node name="MainCamera" type="Camera2D" parent="."]
+script = ExtResource("6_3qyqn")
 
 [node name="GameController" parent="." instance=ExtResource("1_ubr8x")]
 
@@ -77,7 +80,4 @@ layout_mode = 2
 [node name="GetHabitatBtn" parent="Canvas/MarginContainer/DebugBtns" instance=ExtResource("4_lmimt")]
 layout_mode = 2
 
-[node name="MainCamera" type="Camera2D" parent="."]
-script = ExtResource("6_3qyqn")
-
-[node name="Dragon" parent="." instance=ExtResource("7_x06ju")]
+[node name="HUDCntr" parent="Canvas" instance=ExtResource("7_yrrdb")]

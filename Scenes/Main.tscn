@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbsqttwxl2qok"]
+[gd_scene load_steps=7 format=3 uid="uid://cbsqttwxl2qok"]
 
 [ext_resource type="PackedScene" uid="uid://dvb8uvbu4b3sb" path="res://Utility/GameController.tscn" id="1_ubr8x"]
 [ext_resource type="Script" path="res://UI/CanvasController.cs" id="2_vrfvu"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://botmd6atscsqe" path="res://UI/Components/PurchaseEggBtn.tscn" id="3_v27f6"]
 [ext_resource type="PackedScene" uid="uid://ba3lc547smyem" path="res://UI/Components/PurchaseHabitatBtn.tscn" id="4_lmimt"]
 [ext_resource type="Script" path="res://Utility/CameraController.cs" id="6_3qyqn"]
-[ext_resource type="PackedScene" uid="uid://80w673cqa6rs" path="res://UI/Scenes/HUDUI.tscn" id="7_yrrdb"]
 
 [node name="Main" type="Node"]
 
@@ -79,5 +78,3 @@ layout_mode = 2
 
 [node name="GetHabitatBtn" parent="Canvas/MarginContainer/DebugBtns" instance=ExtResource("4_lmimt")]
 layout_mode = 2
-
-[node name="HUDCntr" parent="Canvas" instance=ExtResource("7_yrrdb")]
